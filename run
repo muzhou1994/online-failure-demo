@@ -1,0 +1,11 @@
+#!/bin/bash
+
+version=1.0-SNAPSHOT
+jar=web/target/web-$version.jar
+
+projectmem=64m
+
+source ~/.bash_profile  
+export PATH=$JAVA21:$PATH
+
+java -server -Xmx$projectmem -Xms$projectmem -XX:+UseG1GC -XX:MaxGCPauseMillis=100 -XX:+UseCompressedOops -XX:+UseCompressedClassPointers -verbose:gc -Xlog:gc*:gc.log:time,l,tg:filecount=7,filesize=16M -jar $jar --spring.profiles.active=default > run.log 2>&1

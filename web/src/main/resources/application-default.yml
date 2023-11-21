@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: online-failure-demo
+  config:
+    activate:
+      on-profile: default
+  aop:
+    auto: true
+    proxy-target-class: true
+  pid:
+    file: pid #pid文件名
+
+
+
+server:
+  port: 9001
+  connection-timeout: 60000 #Time in milliseconds that connectors will wait for another HTTP request before closing the connection.
+  tomcat:
+    connection-timeout: 60000 #Time in milliseconds that connectors will wait for another HTTP request before closing the connection.
+    accept-count: 1000 # Maximum queue length for incoming connection requests when all possible request processing threads are in use.
+    max-connections: 100000 # Maximum number of connections that the server will accept and process at any given time.
+    threads:
+      max: 10
+      min-spare: 10
+  servlet:
+    encoding:
+      enabled: true
+      charset: utf-8

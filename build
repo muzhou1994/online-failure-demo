@@ -1,0 +1,15 @@
+#!/bin/bash
+
+source ~/.bash_profile  
+export PATH=$JAVA21:$PATH
+
+mvn clean package -DskipTests -U > /dev/null
+
+r=$?
+if [ "$r" == "0" ] ; then
+    echo 'build success'
+else
+    echo 'build fail'
+    exit 1
+fi
+

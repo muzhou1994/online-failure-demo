@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if [ -f pid ]; then
+    if kill `cat pid` ; then
+        echo 'kill process succeed'
+    else
+        echo 'kill process fail'
+        exit 1
+    fi
+else
+    echo 'pid file not exists'
+    exit 1
+fi

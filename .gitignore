@@ -1,0 +1,5 @@
+/.idea/
+/pid
+**/target
+/logs/
+*.log*
