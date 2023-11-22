@@ -24,7 +24,8 @@ public class VirtualThreadConfig {
     @Bean
     public TomcatProtocolHandlerCustomizer<?> protocolHandlerVirtualThreadExecutorCustomizer() {
         return protocolHandler -> {
-            protocolHandler.setExecutor(Executors.newVirtualThreadPerTaskExecutor());
+            ThreadFactory factory = Thread.ofVirtual().name("virtual", 1L).factory();
+            protocolHandler.setExecutor(Executors.newThreadPerTaskExecutor(factory));
         };
     }
 }
