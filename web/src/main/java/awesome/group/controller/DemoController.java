@@ -38,24 +38,26 @@ public class DemoController {
     }
 
     private void mockProcess() {
-        boolean getConn = false;
-        long start = System.currentTimeMillis();
         synchronized (this) {
+            long start = System.currentTimeMillis();
+            boolean getConn;
             try {
-                getConn = semaphore.tryAcquire(15, TimeUnit.SECONDS);
+                getConn = semaphore.tryAcquire(1, TimeUnit.SECONDS);
             } catch (InterruptedException e) {
                 throw new RuntimeException("getConn interrupted, wait:" + (System.currentTimeMillis() - start));
             }
+            if (!getConn) {
+                throw new RuntimeException("getConn timeout, wait:" + (System.currentTimeMillis() - start));
+            }
         }
 
-        if (!getConn) {
-            throw new RuntimeException("getConn timeout, wait:" + (System.currentTimeMillis() - start));
-        }
         try {
             Thread.sleep(100);//模拟100ms接口调用
-            semaphore.release();
         } catch (InterruptedException e) {
+        } finally {
+            semaphore.release();
         }
     }
+
 
 }
